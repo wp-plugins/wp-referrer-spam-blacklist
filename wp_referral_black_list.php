@@ -4,8 +4,8 @@
  * Plugin Name: WP referrer spam blacklist
  * Plugin URI: http://http://simplemediacode.com/?utm_source=WPplugin%3Awp-referrer-spam-blacklist&utm_medium=wordpressplugin&utm_campaign=FreeWordPressPlugins&utm_content=v-1-0-0
  * Description: WordPress plugin to fight with referrer spam. List based on https://github.com/piwik/referrer-spam-blacklist (Community-contributed list of referrer spammers)
- * Version: 1.0.0
- * Stable tag: 1.0.0
+ * Version: 1.0.1
+ * Stable tag: 1.0.1
  * Requires at least: 4.0
  * Tested up to: 4.2.2
  * Author: Rolands Umbrovskis
@@ -14,7 +14,7 @@
  * License URI: http://simplemediacode.com/license/gpl/
  */
 /*
-  Copyright 2015  Rolands Umbrovskis (info at mediabox dot lv)
+  Copyright 2015  Rolands Umbrovskis (info at SimpleMediaCode dot COM)
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -48,12 +48,43 @@ if (!function_exists('add_action')) {
     echo "Hi! I'm nice WordPress plugin from Umbrovskis.com, but I am more useful if You are using WordPress. So, don't me call directly!.";
     exit;
 }
+
+/**
+ * Version of wpReferralBlacklist
+ * @since 1.0.0
+ */ 
+define('WPREFBLACKLISTV', '1.0.0');
+/**
+ * Define main file
+ * @since 1.0.1
+ */
+define('WPRSBFILE', basename(dirname(__FILE__)) . '/' . basename(__FILE__));
+
+/**
+ * Locate  spammer list
+ * @since 1.0.0
+ */
 include_once dirname(__FILE__) . '/blockList.php'; // in case someone need it somewhere else in WordPress site or PHP project
+
+/**
+ * Load main class
+ * @since 1.0.0
+ */
 include_once dirname(__FILE__) . '/wpReferralBlackList.php';
 
 try {
+    
+/**
+ * Do wpReferralBlacklist
+ * @since 1.0.0
+ */
     new wpReferralBlacklist();
 } catch (Exception $e) {
+
+/**
+ * Do Errors and debug
+ * @since 1.0.0
+ */
     $wp_referralblock_debug = 'Caught exception: wpReferralBlacklist ' . $e->getMessage() . "\n";
     // Akismet style
     if (apply_filters('wp_referralblock_debug_log', defined('WP_DEBUG_LOG') && WP_DEBUG_LOG)) {
